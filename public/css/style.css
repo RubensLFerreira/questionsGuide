@@ -1,0 +1,27 @@
+body {
+  background-color: #e9e9fc;
+}
+
+.nav {
+  margin-left: 20px;
+}
+
+#formulario-pergunta {
+  margin-top: 4vh;
+}
+
+.footerCard {
+  background-color: #e9e9fc;
+}
+
+.footerModule {
+  padding-left: 0%;
+}
+
+.stylePergunta {
+  background-color: #e9e9fc;
+}
+
+.viewForm {
+  height: 100vh;
+}
