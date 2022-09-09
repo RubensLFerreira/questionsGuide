@@ -1,27 +1,38 @@
 body {
-  background-color: #e9e9fc;
+  background-color: #eceff1;
 }
 
-.nav {
-  margin-left: 20px;
+.container {
+  margin-bottom: 6em;
 }
 
-#formulario-pergunta {
-  margin-top: 4vh;
+.btn1 {
+  float: right;
+  border-radius: 5px;
+  border: 1px solid #7430f9;
+  padding: 7px;
+  margin-bottom: 5px;
 }
 
-.footerCard {
-  background-color: #e9e9fc;
+.btn1:hover {
+  color: aliceblue;
+  background-color: #6820f8;
 }
 
-.footerModule {
-  padding-left: 0%;
+.btn {
+  color: aliceblue;
+  background-color: #7430f9;
+  padding: 7px;
+  border-radius: 5px;
+  border: none;
 }
 
-.stylePergunta {
-  background-color: #e9e9fc;
+.btn:hover {
+  color: aliceblue;
+  background-color: #6820f8;
 }
 
-.viewForm {
-  height: 100vh;
+.tituloPerguntar {
+  text-align: center;
+  border-bottom: 2px solid #6820f8;
 }

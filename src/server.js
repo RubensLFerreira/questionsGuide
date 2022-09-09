@@ -1,45 +1,42 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const connection = require("../database/database");
-const Pergunta = require("../model/Perguntar");
-const Resposta = require("../model/Resposta");
+const sequelize = require("../config/database");
 
-//Conexão
-connection
+// Pergunta model
+const Pergunta = require("../model/Pergunta");
+const Resposta = require("../model/Resposta");
+// Conexão com o banco
+sequelize
   .authenticate()
   .then(() => {
-    console.log("Conexão com banco de dados estabelecida com sucesso!");
+    console.log("Conexão estabelecida com sucesso!");
   })
-  .catch((err) => {
-    console.log("Erro ao conectar com o banco de dados! " + err);
+  .catch((error) => {
+    console.error("Erro de conexão", error);
   });
 
-// utilizando ejs como engine
 app.set("view engine", "ejs");
-// para pode utilizar arquivo estáticos
 app.use(express.static("public"));
 
-// o bodyparser vai tranforma os dados do form em javascript
+// Possibilita pegas os dados passados pelo form
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Rotas
+// Página princpal
 app.get("/", (req, res) => {
   Pergunta.findAll({ raw: true, order: [["id", "desc"]] }).then((perguntas) => {
-    // raw trás apenas os dados
-    res.render("index", {
-      // enviando para o front
-      perguntas,
+    res.render("pages/index", {
+      perguntas: perguntas,
     });
   });
 });
 
+// Página perguntar
 app.get("/perguntar", (req, res) => {
-  res.render("perguntar");
+  res.render("pages/perguntar");
 });
 
-// Esse post tá vindo do formulário
 app.post("/salvarpergunta", (req, res) => {
   const titulo = req.body.titulo;
   const descricao = req.body.descricao;
@@ -53,37 +50,30 @@ app.post("/salvarpergunta", (req, res) => {
 });
 
 app.get("/pergunta/:id", (req, res) => {
-  // buscando o id na tabela pergunta
   const id = req.params.id;
-
   Pergunta.findOne({
     where: { id: id },
   }).then((pergunta) => {
     if (pergunta) {
-      Resposta.findAll(
-        {
-          where: { perguntaId: pergunta.id },
-          order: [["id", "desc"]]
-        }
-      ).then((respostas) => {
-        res.render("pergunta", {
+
+      Resposta.findAll({
+        where: { perguntaId: pergunta.id}, order: [["id", "desc"]]
+      }).then((respostas) => {
+        res.render("pages/pergunta", {
           pergunta,
           respostas,
         });
       });
+
     } else {
-      res.render("error");
+      res.render("pages/error");
     }
   });
 });
 
-app.get("/error", (req, res) => {
-  res.render("error");
-});
-
 app.post("/responder", (req, res) => {
+  const perguntaId = req.body.pergunta;
   const corpo = req.body.corpo;
-  const perguntaId = req.body.perguntaId;
 
   Resposta.create({
     corpo,
@@ -93,8 +83,8 @@ app.post("/responder", (req, res) => {
   });
 });
 
-app.listen(8081, () => {
-  console.log("Server running at URL: http://localhost:8081");
+app.listen(8080, () => {
+  console.log(`Server running - link: http://localhost:8080`);
 });
 
 // console.log(__dirname);

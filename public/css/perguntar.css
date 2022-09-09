@@ -1,0 +1,24 @@
+body {
+  background-color: #eceff1;
+}
+
+.bi {
+  color: #7430f9;
+}
+.bi:hover {
+  color: #6820f8;
+}
+
+.btn {
+  color: aliceblue;
+  background-color: #7430f9;
+}
+
+.btn:hover {
+  color: aliceblue;
+  background-color: #6820f8;
+}
+
+.container {
+  margin-top: 5vh;
+}

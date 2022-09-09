@@ -1,0 +1,27 @@
+.position-img {
+  text-align: center;
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  margin: auto;
+  display: block;
+}
+
+img {
+  width: 60%;
+}
+
+.btn {
+  margin-top: 1em;
+  color: aliceblue;
+  background-color: #7430f9;
+  padding: 7px;
+  border-radius: 5px;
+  border: none;
+}
+
+.btn:hover {
+  color: aliceblue;
+  background-color: #6820f8;
+}
+
